@@ -6,7 +6,9 @@ public class Board {
 	private BoardUser user;
 	public int getId() {
 		return id;
+		
 	}
+	
 	public String getTitle() {
 		return title;
 	}
