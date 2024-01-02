@@ -8,6 +8,7 @@ public class User {
 	private String userNickName;
 	private String userEmail;
 	private String userResistNum;
+	private String userTel;
 
 	public String getUserID() {
 		return userID;
@@ -51,6 +52,14 @@ public class User {
 
 	public String getUserResistNum() {
 		return userResistNum;
+	}
+
+	public String getUserTel() {
+		return userTel;
+	}
+
+	public void setUserTel(String userTel) {
+		this.userTel = userTel;
 	}
 
 	public void setUserResistNum(String userResistNum) {

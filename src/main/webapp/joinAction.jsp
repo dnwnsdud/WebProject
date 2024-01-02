@@ -12,6 +12,7 @@ request.setCharacterEncoding("UTF-8");
 <jsp:setProperty name="user" property="userNickName" />
 <jsp:setProperty name="user" property="userEmail" />
 <jsp:setProperty name="user" property="userResistNum" />
+<jsp:setProperty name="user" property="userTel" />
 
 <!DOCTYPE html>
 <html>
@@ -21,8 +22,11 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<%
+	System.out.println(user.getUserID());
+	request.setCharacterEncoding("UTF-8");
 	if (user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
-			|| user.getUserNickName() == null || user.getUserEmail() == null || user.getUserResistNum() == null) {
+			|| user.getUserNickName() == null || user.getUserEmail() == null || user.getUserResistNum() == null
+			|| user.getUserTel() == null) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('입력이 안 된 사항이 있습니다. 확인해주세요.')");
@@ -42,6 +46,7 @@ request.setCharacterEncoding("UTF-8");
 			script.println("<script>");
 			script.println("location.href = 'ok.jsp'");
 			script.println("</script>");
+
 		}
 	}
 	%>

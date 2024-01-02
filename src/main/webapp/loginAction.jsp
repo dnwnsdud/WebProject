@@ -17,7 +17,6 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 	<%
-	
 	/* try(com.jsp.dao.DAOWrapper daos = new com.jsp.dao.DAOWrapper(request);){
 		
 		daos.login();
@@ -47,10 +46,13 @@ request.setCharacterEncoding("UTF-8");
 		}
 	}catch(Exception e){}
 	 */
+	/* String id =  */
 	UserDAO userDAO = new UserDAO();
 	int result = userDAO.login(user.getUserID(), user.getUserPassword());
+	String id = null;
 	if (result == 1) {
 		PrintWriter script = response.getWriter();
+		session.setAttribute("userID", user.getUserID());
 		script.println("<script>");
 		script.println("location.href = 'ok.jsp'");
 		script.println("</script>");
