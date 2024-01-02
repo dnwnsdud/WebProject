@@ -7,9 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="">
-		<input type="text" placeholder="ID를 입력해주세요" /> <input type="password"
-			placeholder="password를 입력해주세요" /> <input type="submit" />
+	<form action="loginAction.jsp" method="post">
+		<div>
+			<input type="text" placeholder="ID를 입력해주세요" name="userID" />
+		</div>
+		<div>
+			<input type="password" placeholder="password를 입력해주세요"
+				name="userPassword" />
+		</div>
+		<input type="submit" value="로그인" />
 	</form>
+
 </body>
 </html>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="">
+	<form action="" method="post">
 	<input type="text" placeholder="ID입력"></input>
 	<input type="password" placeholder="password입력"/>
 	<input type="text" placeholder="이름입력"/>
