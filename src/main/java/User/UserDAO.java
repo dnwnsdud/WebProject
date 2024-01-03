@@ -80,7 +80,7 @@ public class UserDAO {
 	public int userUpdate(com.jsp.dto.User user) {
 		int count = 0;
 		// 쿼리문 작성
-		String sql = "";
+		String sql = "UPDATE USER2 SET userEmail=?, UserTel=?, userPassword=?, userNickName=? WHERE userID=?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -104,8 +104,7 @@ public class UserDAO {
 	// 회원 탈퇴
 	public int deletUser(String userId, String userPassword) {
 		int count = 0;
-		// 쿼리문 작성
-		String sql = "";
+		String sql = "DELETE FROM USER2 WHERE userID=? AND userPassword=?";
 
 		try {
 			pstmt = null;
