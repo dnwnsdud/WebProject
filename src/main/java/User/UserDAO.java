@@ -17,7 +17,7 @@ public class UserDAO {
 
 	public UserDAO() {
 		try {
-			String dbURL = "jdbc:oracle:thin:@localhost:1521:xe";
+			String dbURL = "jdbc:oracle:thin:@192.168.2.5:1521:xe";
 			String dbID = "wjy";
 			String dbPassword = "1234";
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -28,7 +28,7 @@ public class UserDAO {
 	}
 
 	public int login(String userID, String userPassword) {
-		
+
 		String SQL = "SELECT userPassword FROM USER2 WHERE userID = ?";
 		try {
 
@@ -54,7 +54,8 @@ public class UserDAO {
 		}
 		return -2;
 	}
-	public int signUp (User user) {
+
+	public int signUp(User user) {
 		String SQL = "INSERT INTO USER2 VALUES (seqnext.nextval,?,?,?,?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(SQL);
@@ -69,73 +70,57 @@ public class UserDAO {
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			closeResources();
-		// 회원가입 실패 / DB오류
-	}
+			// 회원가입 실패 / DB오류
+		}
 		return -1;
 	}
-	public UserUpdateDAO() {
-		// DB 연결 해주세요
-		try {
-			String dbURL = "";
-			String dbID = "";
-			String dbPassword = "";
-			
-			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
 
-	}
-	
 	public int userUpdate(com.jsp.dto.User user) {
 		int count = 0;
 		// 쿼리문 작성
-		String sql = "UPDATE USER2 SET userEmail=?, userTel=?, userPassword=?, userNickName=? WHERE userID=?";
-		
+		String sql = "";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, user.getUserEmail());
 			pstmt.setString(2, user.getUserTel());
 			pstmt.setString(3, user.getUserPassword());
 			pstmt.setString(4, user.getUserNickName());
 
-			// 쿼리 실행 
+			// 쿼리 실행
 			count = pstmt.executeUpdate();
-	
-		}catch (SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeResources();
 		}
 		return count;
 	}
-	
+
 	// 회원 탈퇴
 	public int deletUser(String userId, String userPassword) {
 		int count = 0;
 		// 쿼리문 작성
 		String sql = "";
-		
+
 		try {
 			pstmt = null;
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPassword);
-			
+
 			count = pstmt.executeUpdate();
-			
-		}catch (SQLException e){
-			
-		}finally {
+
+		} catch (SQLException e) {
+
+		} finally {
 			closeResources();
 		}
 		return count;
 	}
-
-
 
 	private void closeResources() {
 		try {
