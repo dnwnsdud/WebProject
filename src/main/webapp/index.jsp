@@ -61,7 +61,9 @@ keySet.sort((o1, o2) -> acMap.get(o2).compareTo(acMap.get(o1)));
           <ul class="swiper-wrapper">
           <%
           for (int i = 0; i < 10; i+=1 ) {  %>
-          	<li class="swiper-slide"><img src="<%=jsonMovie.getJSONArray("movielist").getJSONObject(keySet.get(i)).getString("poster_path") %>" alt="" /></li>
+          	<li class="swiper-slide"><a href="<%="/detail.jsp?movieid=" + Integer.toString(jsonMovie.getJSONArray("movielist").getJSONObject(keySet.get(i)).getInt("movieID"))%>">
+          			<img src="<%=jsonMovie.getJSONArray("movielist").getJSONObject(keySet.get(i)).getString("poster_path") %>" alt="" />
+          		</a></li>
           <%} %>
           </ul>
           <div class="swiper-button-next next1"></div>
