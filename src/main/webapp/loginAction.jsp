@@ -17,8 +17,9 @@ if (loginResult != null) {
 		// 사용자 정보가 정상적으로 얻어졌을 경우에만 세션에 저장
 		session.setAttribute("userID", userID);
 		session.setAttribute("loggedInUser", user);
-
+		/* out.println("<script>history.back();</script>"); */
 		response.sendRedirect("index.jsp");
+		
 	} else {
 		// 사용자 정보 얻기 실패
 		out.println("<script>alert('사용자 정보를 얻어오는데 실패했습니다.');history.back();</script>");

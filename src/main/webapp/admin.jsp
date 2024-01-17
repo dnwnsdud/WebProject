@@ -5,6 +5,8 @@
 <%@ page import="java.util.List"%>
 
 <%
+response.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("UTF-8");
 userDTO loggedInUser = (userDTO) session.getAttribute("loggedInUser");
 
 if (loggedInUser.getUserID().equals("admin")) {
@@ -19,7 +21,7 @@ List<userDTO> userList = adminDao.getAllUsers();
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
