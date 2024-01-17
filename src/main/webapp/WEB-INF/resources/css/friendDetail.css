@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px 0;
+}
+/* 게시글 정보 표시 영역 */
+.post-detail {
+    width: 900px;
+    margin: auto; 
+    margin-top: 100px;
+    margin-bottom: 0;
+    min-height: 500px;
+    max-height: 1000px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+.post-detail-info {
+    display: flex;
+    margin-bottom: 15px; 
+}
+#post-author {
+    margin-right: 20%; 
+}
+
+#post-title {
+    margin-right: 50%; 
+}
+
+/* #post-date {
+    
+} */
+
+
+
+/* 댓글 목록  */
+.comment-section {
+    width: 900px;
+    margin: 0 auto; 
+    padding: 20px;
+    margin-bottom: 0;
+    border-top: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+#comment-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 500px;
+}
+
+
+
+/* #delet-btn{
+
+}
+
+#edit-bhtn{
+
+} */
+
+
+
+ /* 게시판 등록 페이지  */
+ .form-container {
+    width: 50%;
+    margin: auto; 
+    margin-top: 100px;
+    min-height: 600px;
+    border: 1px solid #d3d3d3;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+/* 게시판 수정 페이지 */
+  .moifyPost {
+    width: 50%;
+    margin: auto; 
+    margin-top: 100px;
+    min-height: 600px;
+    border: 1px solid #d3d3d3;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }

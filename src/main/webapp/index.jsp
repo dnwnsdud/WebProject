@@ -39,7 +39,7 @@ keySet.sort((o1, o2) -> acMap.get(o2).compareTo(acMap.get(o1)));
         <div class="gnb">
           <a href="./movie.html">영화</a>
           <a href="./animation.html">애니메이션</a>
-          <a href="./review.html">리뷰</a>
+          <a href="./friend.jsp">리뷰</a>
         </div>
         <div class="click">
           <input type="text" placeholder="콘텐츠 등을 검색해보세요!" />

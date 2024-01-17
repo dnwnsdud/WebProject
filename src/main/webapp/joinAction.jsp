@@ -20,7 +20,6 @@
 <body>
 	<%
 	request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
 	PrintWriter script = response.getWriter(); // script 변수 선언
 
 	if (user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
@@ -30,11 +29,11 @@
 	} else {
 		userDAO userDAO = new userDAO();
 		int result = userDAO.signUp(user);
-		if(result == -2){
-			showAlert("이미 가입되어 있습니다.", script);
-		}else if (result == -1) {
+		if (result == -1) {
 			showAlert("이미 존재하는 아이디입니다.", script);
-			}else if (result == 1) {
+		} else if (result == -2) {
+			showAlert("이미 가입되어 있습니다.", script);
+		} else {
 			showAlert("회원가입 성공하였습니다.", script);
 			response.sendRedirect("./login.jsp");
 		}

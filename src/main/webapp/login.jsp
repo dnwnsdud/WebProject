@@ -61,7 +61,7 @@
 		<div>
 			<span class="not">계정이 없으신가요?</span> <span class="user"><a
 				href="./terms.html">회원가입</a></span> <span class="user">/</span> <span
-				class="user"><a href="./terms.html">아이디 찾기</a></span>
+				class="user"><a href="./findid.html">아이디 찾기</a></span>
 		</div>
 	</div>
 	<%

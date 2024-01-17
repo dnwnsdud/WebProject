@@ -11,7 +11,7 @@ public class userDAO {
 	private Connection conn;
 
 	private static final String LOGIN_QUERY = "SELECT userPassword FROM USERS WHERE userID = ?";
-	private static final String SIGNUP_QUERY = "INSERT INTO USERS VALUES (USER_NUM_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
+	private static final String SIGNUP_QUERY = "INSERT INTO USERS (USERNUM, USERID, USERPASSWORD, USERNAME, USERNICKNAME, USEREMAIL, USERRESISTNUM, USERTEL) VALUES (USER_NUM_SEQ.NEXTVAL, ?,?,?,?,?,?,?)";
 	private static final String USER_UPDATE_QUERY = "UPDATE USERS SET userEmail=?, UserTel=?, userPassword=?, userNickName=? WHERE userID=?";
 	private static final String FIND_USERID_QUERY = "SELECT USERS FROM UserDB WHERE userEmail=? and userTel=? and userResistNum=?";
 	private static final String DELETE_USER_QUERY = "DELETE FROM USERS WHERE userID=? AND userPassword=?";
@@ -67,9 +67,10 @@ public class userDAO {
 	}
 
 	public int signUp(userDTO user) {
-		boolean isUserIDExist = isUserIDExist(user.getUserID());
-		if (isUserIDExist) {
-			return -1;
+
+		if (isUserResistNumExist(user.getUserResistNum())) {
+
+			return -2; // 이미 가입된 주민번호
 		}
 		try (PreparedStatement pstmSignUp = conn.prepareStatement(SIGNUP_QUERY)) {
 			pstmSignUp.setString(1, user.getUserID());
@@ -80,10 +81,25 @@ public class userDAO {
 			pstmSignUp.setString(6, user.getUserResistNum());
 			pstmSignUp.setString(7, user.getUserTel());
 			pstmSignUp.executeUpdate();
-			return 1;
+
+			return 1; // 성공
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return -1;
+			System.out.println(e);
+			return -1; // 데이터베이스 오류 + 아이디중복 (제약조건 위반)
+		}
+	}
+
+	public boolean isUserResistNumExist(String userResistNum) {
+		try (PreparedStatement pstmLogin = conn.prepareStatement("SELECT * FROM USERS WHERE USERRESISTNUM = ?")) {
+			pstmLogin.setString(1, userResistNum);
+			try (ResultSet rs = pstmLogin.executeQuery()) {
+				System.out.println("결과: " + rs.next());
+				return rs.next(); // 해당 주민번호가 이미 존재하면 true 반환
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false; // 데이터베이스 오류
 		}
 	}
 
@@ -132,17 +148,6 @@ public class userDAO {
 			e.printStackTrace();
 		}
 		return count;
-	}
-
-	private boolean isUserIDExist(String userID) {
-		try (PreparedStatement pstmLogin = conn.prepareStatement("SELECT * FROM UserDB WHERE userID = ?");
-				ResultSet rs = pstmLogin.executeQuery()) {
-			pstmLogin.setString(1, userID);
-			return rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 
 	public userDTO loginAndGetUser(String userID, String userPassword) {

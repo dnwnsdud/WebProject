@@ -18,7 +18,7 @@ if (loginResult != null) {
 		session.setAttribute("userID", userID);
 		session.setAttribute("loggedInUser", user);
 
-		response.sendRedirect("index.html");
+		response.sendRedirect("index.jsp");
 	} else {
 		// 사용자 정보 얻기 실패
 		out.println("<script>alert('사용자 정보를 얻어오는데 실패했습니다.');history.back();</script>");

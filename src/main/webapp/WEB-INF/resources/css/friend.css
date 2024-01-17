@@ -100,13 +100,10 @@ header {
   border-radius: 1rem;
   cursor: pointer;
 }
-/* 헤더 영역 끝 */
 .board {
+  width: 50%;
+  margin: auto; 
   margin-top: 100px;
-  width: 45%;
-  margin-right: 100px;
-  margin-left: 380px;
-  padding: 10px;
   min-height: 800px;
   border: 1px solid #d3d3d3;
   background: #fff;
@@ -135,4 +132,56 @@ header {
   width: 100%;
   height: 150px;
   resize: none;
+}
+
+
+#user-info .nickname {
+  margin-right: 10px;
+}
+
+
+#user-info img {
+  width: 24px; 
+  height: 24px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.board-navigation {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.board-navigation button {
+  margin: 0 5px;
+}
+
+
+.board th {
+  width: 10%;
+}
+
+.board th.title {
+  width: 50%;
+}
+
+.board th.date {
+  width: 20%;
+}
+
+.board th.userid{
+ width: 20%;
 }
