@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/resources/myrest.css" />
+    <link href="/resources/review.css" rel="stylesheet" />
+    <link href="/resources/chat.css" rel="stylesheet" />
+    <script src="/resources/review.js" defer></script>
+
+    <title>리뷰 페이지</title>
+  </head>
+
+  <body>
+    <header class="hd">
+      <nav class="mw">
+        <h1 class="logo">
+          <a href="./index.html"
+            ><img src="/resources/WATCHA_PEDIA_Logo_Main1.png" alt="" />
+          </a>
+        </h1>
+        <div class="gnb">
+          <a href="./movie.html">영화</a>
+          <a href="./animation.html">애니메이션</a>
+          <a href="./review.html">리뷰</a>
+        </div>
+        <div class="click">
+          <input type="text" placeholder="콘텐츠 등을 검색해보세요!" />
+          <button class="log"><a href="./login.html">로그인</a></button>
+          <button class="join"><a href="./terms.html">회원가입</a></button>
+        </div>
+      </nav>
+    </header>
+    <div class="wrap">
+      <div class="menu">
+        <nav>
+          <select id="genreOptions">
+            <option value="all">전체</option>
+            <option value="action">액션</option>
+            <option value="comedy">코미디</option>
+            <option value="drama">드라마</option>
+            <option value="thriller">스릴러</option>
+          </select>
+          <select id="reviewOptions" onchange="sortReviews()">
+            <option value="likes">좋아요순</option>
+            <option value="date">날짜순</option>
+            <option value="high_score">높은 평가순</option>
+            <option value="low_score">낮은 평가순</option>
+          </select>
+          <button class="toggleReviewPopup" onclick="toggleReviewPopup()">
+            리뷰쓰기
+          </button>
+        </nav>
+      </div>
+      <div class="review">
+        <h2>
+          <a href=""
+            ><img src="/resources/person.png" alt="Icon" class="person-icon" /></a
+          >영화 제목
+        </h2>
+        <div class="review-star">별점: ★★★★☆</div>
+        <p class="review-content">여기에 리뷰 내용</p>
+        <div class="interaction-bar">
+          <img
+            src="/resources/like_1.png"
+            class="like-icon"
+            onclick="Likefunction(this)"
+            alt="Like"
+            data-likes="0"
+          />
+          <span class="like-count">0</span>
+          <span class="comment" onclick="toggleComments('review')">댓글</span>
+        </div>
+      </div>
+      <!-- 리뷰 작성 팝업창 -->
+      <div id="reviewPopup" class="popup">
+        <span class="close-btn" onclick="toggleReviewPopup()">&times;</span>
+        <div class="review-form">
+          <input type="text" id="reviewTitleInput" placeholder="영화 제목" />
+          <select id="reviewRatingInput">
+            <option value="5">★★★★★</option>
+            <option value="4">★★★★☆</option>
+            <option value="3">★★★☆☆</option>
+            <option value="2">★★☆☆☆</option>
+            <option value="1">★☆☆☆☆</option>
+          </select>
+          <textarea id="reviewContentInput" placeholder="리뷰 내용"></textarea>
+          <button onclick="submitReview()">리뷰 등록</button>
+        </div>
+      </div>
+      <div id="reviewList"></div>
+      <!-- 댓글 팝업 창 -->
+      <div id="commentsPopup" class="popup">
+        <span class="close-btn" onclick="toggleComments()">&times;</span>
+        <div class="comments-section">
+          <h3>댓글</h3>
+          <ul id="commentsList"></ul>
+          <div class="comment-input">
+            <textarea
+              id="commentInput"
+              placeholder="댓글을 입력하세요..."
+            ></textarea>
+            <button onclick="postComment()">등록</button>
+          </div>
+        </div>
+      </div>
+      <div id="reviewOverlay" class="overlay" style="display: none"></div>
+      <div id="commentsOverlay" class="overlay" style="display: none"></div>
+    </div>
+  </body>
+</html>

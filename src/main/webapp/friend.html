@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/myrest.css" />
+    <link href="../css/friend.css" rel="stylesheet" />
+    <link href="../css/recommendations.css" rel="stylesheet" />
+    <script src="../js/board.js"></script>
+    <title>페이지 레이아웃</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <header class="hd">
+          <nav class="mw">
+            <h1 class="logo">
+              <a href="./index.html"
+                ><img src="../img/WATCHA_PEDIA_Logo_Main1.png" alt="" />
+              </a>
+            </h1>
+            <div class="gnb">
+              <a href="./movie.html">영화</a>
+              <a href="./animation.html">애니메이션</a>
+              <a href="./review.html">리뷰</a>
+            </div>
+            <div class="click">
+              <input type="text" placeholder="콘텐츠 등을 검색해보세요!" />
+              <button class="log"><a href="./login.html">로그인</a></button>
+              <button class="join"><a href="./terms.html">회원가입</a></button>
+            </div>
+          </nav>
+        </header>
+      </header>
+
+      <div class="board">
+        <nav>
+          <select id="genreOptions">
+            <option value="all-genre">전체</option>
+            <option value="action">액션</option>
+            <option value="comedy">코미디</option>
+            <option value="drama">드라마</option>
+            <option value="romance">로맨스</option>
+            <option value="thriller">스릴러</option>
+          </select>
+        </nav>
+        <div class="board-details"></div>
+      </div>
+      <div class="comments">
+        <div class="comment-form">
+          <input type="text" id="title" placeholder="제목" />
+          <input type="text" id="moviename" placeholder="영화 이름" />
+          <input type="text" id="location" placeholder="지역" />
+          <select id="commentOptions">
+            <option value="action">액션</option>
+            <option value="comedy">코미디</option>
+            <option value="drama">드라마</option>
+            <option value="romance">로맨스</option>
+            <option value="thriller">스릴러</option>
+          </select>
+          <textarea id="memo" placeholder="메모"></textarea>
+          <button onclick="addPost()">등록</button>
+        </div>
+      </div>
+      <div class="recommendations">
+        <div class="movie" onclick="location.href='';">
+          <div class="movie-image"><img src="" alt="영화1" /></div>
+        </div>
+        <div class="movie" onclick="location.href='';">
+          <div class="movie-image"><img src="" alt="영화2" /></div>
+        </div>
+        <div class="movie" onclick="location.href='';">
+          <div class="movie-image"><img src="" alt="영화3" /></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

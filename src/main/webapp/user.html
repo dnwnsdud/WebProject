@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/resources/myrest.css" />
+    <link rel="stylesheet" href="/resources/user.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>
+        <a href="./index.html"
+          ><img src="/resources/WATCHA_PEDIA_Logo_Main1.png" alt=""
+        /></a>
+      </h1>
+        <form action="./joinAction.jsp" method="post">
+
+      <ul>
+        <li>
+          <input type="text" placeholder="아이디" class="id" name="userID"/>
+        </li>
+        <li>
+          <input type="password" placeholder="비밀번호" class="password" name="userPassword" />
+        </li>
+        <li><input type="text" placeholder="이름" class="name" name="userName"/></li>
+        <li>
+          <input type="text" placeholder="닉네임" class="nick" name="userNickName"/>
+        </li>
+        <li>
+          <input type="text" placeholder="이메일을 적어주세요" class="mail" name="userEmail"/>
+        </li>
+        <li>
+          <input
+            type="text"
+            placeholder="주민등록번호13자리를 적어주세요"
+            class="birth"
+            name="userResistNum"
+          />
+        </li>
+        <li>
+          <input
+            type="text"
+            placeholder="휴대전화번호 '-'빼고 적어주세요"
+            class="phone"
+            name="userTel"
+          />
+        </li>
+      </ul>
+      <div><button>회원가입</button></div>
+          </form>
+
+    </div>
+  </body>
+</html>

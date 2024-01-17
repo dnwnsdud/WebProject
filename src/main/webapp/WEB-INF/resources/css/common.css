@@ -1,0 +1,276 @@
+@charset 'utf-8';
+@font-face {
+  font-family: "MBC1961GulimM";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  font-family: "MBC1961GulimM";
+  --point1: #c1dcdc;
+  --point2: #ff0558;
+  --gray1: #1e1e1e;
+  --gray2: #5f5f5f;
+  --gray3: #bbbbbb;
+  --white: #fff;
+  --white2: rgba(255, 255, 255, 0.8);
+  --gap-big: 50px;
+  --gap-small: 32px;
+  --gap-ss: 20px;
+  font-size: 10px;
+}
+h2 {
+  user-select: none;
+}
+.wrap {
+  max-width: 1320px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+/* 헤더 영역 시작 */
+header {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 60px;
+  z-index: 9999;
+  background-color: var(--white);
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom: 1px dotted var(--gray3);
+}
+.logo img {
+  width: 168px;
+  height: auto;
+}
+.mw {
+  width: calc(100% - calc(var(--gap-big) * 3));
+  height: 60px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: var(--gap-ss);
+  max-width: 1320px;
+}
+.gnb {
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+  top: 25px;
+  left: 200px;
+  position: absolute;
+  width: 200px;
+  color: var(--gray2);
+}
+.click {
+  display: flex;
+  gap: 10px;
+}
+.click input {
+  background-color: rgb(243, 240, 240);
+  width: 300px;
+  height: 30px;
+  border: none;
+  padding-left: var(--gap-ss);
+  color: var(--gray1);
+}
+
+.click input:focus {
+  border: none;
+  outline: none;
+}
+.log {
+  font-size: 15px;
+  color: var(--gray2);
+  border: none;
+  outline: none;
+  background-color: var(--white);
+  cursor: pointer;
+}
+.join {
+  font-size: 15px;
+  color: var(--gray2);
+  border: 1px solid var(--gray3);
+  background-color: var(--white);
+  border-radius: 1rem;
+  cursor: pointer;
+}
+/* 헤더 영역 끝 */
+/* 우리동네 시작*/
+.con1 {
+  padding-top: calc(var(--gap-big) * 2);
+  padding-left: calc(var(--gap-big) * 5);
+  padding-right: calc(var(--gap-big) * 5);
+}
+.con1 div {
+  /* border: 1px solid black; */
+  height: 200px;
+}
+.con1 img {
+  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+}
+/* 우리동네 끝 */
+/* 박스오피스 순위 시작 */
+.con2 {
+  padding: calc(var(--gap-small) * 2) calc(var(--gap-small) * 3)
+    calc(var(--gap-small)) calc(var(--gap-small) * 3);
+}
+.con2 h2 {
+  padding-bottom: var(--gap-small);
+  font-size: var(--gap-ss);
+  color: var(--gray2);
+}
+.slide1 {
+  padding-top: 2rem;
+}
+.slide1 img,
+.slide2 img {
+  width: 100%;
+  height: 70%;
+}
+/* 박스 오피스 순위 끝 */
+/* 왓챠 개봉관 순위 시작 */
+.con3 {
+  padding: 0 calc(var(--gap-small) * 3) var(--gap-small)
+    calc(var(--gap-small) * 3);
+  width: 100%;
+}
+.con3 h2 {
+  padding-top: var(--gap-small);
+  padding-bottom: var(--gap-small);
+  font-size: var(--gap-ss);
+  color: var(--gray2);
+}
+.slide2 {
+  padding-top: 2rem;
+}
+/* 왓챠 개봉관 순위 끝 */
+/* 왓챠 피디아 컬렉션 시작 */
+.con4 {
+  padding: 0 calc(var(--gap-small) * 3) var(--gap-small)
+    calc(var(--gap-small) * 3);
+  width: 100%;
+}
+.con4 h2 {
+  padding-top: var(--gap-small);
+  padding-bottom: var(--gap-small);
+  font-size: var(--gap-ss);
+  color: var(--gray2);
+}
+.slide3 {
+  padding-top: 2rem;
+  width: 100%;
+}
+.slide3 .gr {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  border: 3px solid var(--gray3);
+  border-radius: 1rem;
+}
+.gr img {
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--gray3);
+}
+/* 왓챠 피디아 컬렉션 끝 */
+/* 평가 들어가는곳 */
+.con5 {
+  margin-top: var(--gap-big);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  text-align: center;
+  color: var(--white);
+  background-color: rgb(10, 10, 9);
+  font-size: var(--gap-small);
+}
+/* 하단 영역 시작 */
+footer {
+  padding-top: var(--gap-ss);
+  padding-bottom: var(--gap-big);
+  padding-left: 250px;
+  padding-right: 250px;
+  background-color: var(--gray1);
+  width: 100%;
+  color: var(--white);
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  padding-left: calc(var(--gap-small) * 2);
+  line-height: 15px;
+}
+.left .tag {
+  padding-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+.tag .first::after,
+.tag .second::after {
+  content: "|";
+  padding-left: 10px;
+}
+
+.left .mail {
+  padding-bottom: 10px;
+}
+.left .name {
+  padding-bottom: var(--gap-small);
+}
+.right {
+  padding-right: calc(var(--gap-small) * 4);
+}
+.right button {
+  color: var(--white);
+  border: 1px solid var(--white);
+  padding-right: 25px;
+  font-size: 1.3rem;
+  background-color: var(--gray1);
+  outline: none;
+}
+.right div {
+  padding-top: calc(var(--gap-ss) * 4);
+  display: flex;
+  gap: 10px;
+}
+/* 하단 영역 끝 */
+/*스와이퍼 버튼 꾸미기 */
+
+.swiper-button-next {
+  background-color: #00000069;
+  right: 0;
+  top: 50%;
+}
+.swiper-button-next::after {
+  color: #fff;
+  font-size: 30px;
+}
+.swiper-button-prev {
+  background-color: #00000069;
+  left: 0;
+  top: 50%;
+}
+.swiper-button-prev::after {
+  color: #fff;
+  font-size: 30px;
+}
+.swiper-button-disabled {
+  display: none;
+}
+.num {
+  color: var(--point2);
+  font-size: 1.2em;
+}

@@ -3,7 +3,7 @@ package com.jsp.mapping;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
+
 
 import javax.servlet.ServletException;
 // JSP, Servlet과 관련한 모든 기능은 javax라는 패키지에 포함
@@ -52,24 +52,40 @@ public class ResourceMapping extends HttpServlet {
 		else if(token.equalsIgnoreCase("jpeg") || token.equalsIgnoreCase("jpg")) {
 			resp.setContentType("image/jpeg");
 			try(OutputStream out = resp.getOutputStream();
-					InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "image/original" + info);){
+					InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "image/" + info);){
 				out.write(in.readAllBytes());
 			}catch(Exception e) {}
 		}
 		else if(token.equalsIgnoreCase("png")) {
 			resp.setContentType("image/png");
 			try(OutputStream out = resp.getOutputStream();
-					InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "image/original" + info);){
+					InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "image/" + info);){
 				out.write(in.readAllBytes());
 			}catch(Exception e) {}	
 		}
 		else if(token.equalsIgnoreCase("gif")) {
 			resp.setContentType("image/gif");
 			try(OutputStream out = resp.getOutputStream();
-					InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "image/original" + info);){
+					InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "image/" + info);){
 				out.write(in.readAllBytes());
 			}catch(Exception e) {}	
 		}
+	      else if(token.equalsIgnoreCase("json")) {  
+	          resp.setContentType("application/json"); 
+	          try(OutputStream out = resp.getOutputStream();  
+	                InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + token+info);){
+	             out.write(in.readAllBytes());
+	          }catch(Exception e) {}
+	          
+	       }
+	       else if(token.equalsIgnoreCase("svg")) {  
+	          resp.setContentType("image/svg"); 
+	          try(OutputStream out = resp.getOutputStream();  
+	                InputStream in = getServletContext().getResourceAsStream("/WEB-INF/resources/" + "img"+info);){
+	             out.write(in.readAllBytes());
+	          }catch(Exception e) {}
+	          
+	       }
 		
 //		String id = req.getParameter("id");
 //		

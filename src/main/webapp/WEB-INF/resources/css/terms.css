@@ -1,0 +1,210 @@
+@charset 'utf-8';
+@font-face {
+  font-family: "MBC1961GulimM";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  font-family: "MBC1961GulimM";
+  --point1: #c1dcdc;
+  --point2: #ff0558;
+  --gray1: #1e1e1e;
+  --gray2: #5f5f5f;
+  --gray3: #bbbbbb;
+  --white: #fff;
+  --white2: rgba(255, 255, 255, 0.8);
+  --gap-big: 50px;
+  --gap-small: 32px;
+  --gap-ss: 20px;
+  font-size: 10px;
+}
+input,
+progress {
+  accent-color: var(--point2);
+}
+.wrap {
+  margin: 100px auto;
+  border-radius: 0.5rem;
+  width: 500px;
+  height: 500px;
+  background-color: #ffffff;
+  position: relative;
+}
+h1 {
+  align-content: center;
+  text-align: center;
+  width: 100%;
+  height: 80px;
+}
+h1 img {
+  width: 40%;
+}
+.term {
+  align-content: center;
+  text-align: center;
+  font-size: 2.5rem;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+.dec {
+  margin-bottom: 2rem;
+}
+
+.ag {
+  font-size: 2rem;
+  color: var(--gray2);
+}
+.check {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.check span {
+  color: var(--gray2);
+}
+.ess {
+  color: var(--point2);
+}
+.scroll {
+  color: var(--gray2);
+  padding: 20px 20px 0 20px;
+  border: 1px solid var(--gray2);
+  border-radius: 0.5rem;
+  width: 100%;
+  height: 150px;
+  overflow: auto;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+}
+.agreeMsg {
+  color: var(--point2);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.bt {
+  width: 100%;
+  height: 50px;
+  background-color: var(--point2);
+  border: none;
+  border-radius: 0.8rem;
+  color: var(--white);
+  font-weight: bold;
+  font-size: 2rem;
+  cursor: pointer;
+}
+/*모달창 css*/
+.modal1 {
+  position: absolute;
+  display: none;
+
+  justify-content: center;
+  top: 100px;
+  left: 0;
+
+  width: 100%;
+  height: 700px;
+}
+.modal_wrap {
+  display: flex;
+  justify-content: space-between;
+}
+.modal_close {
+  padding-right: 30px;
+  color: var(--point2);
+}
+.modal_content {
+  position: absolute;
+  top: 35%;
+
+  width: 900px;
+  height: 700px;
+
+  padding: 40px;
+
+  background-color: rgb(248, 247, 245);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateY(-50%);
+}
+h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--gray2);
+  border-bottom: 1px solid var(--gray2);
+  padding-bottom: 3rem;
+}
+.modal_content .modala {
+  margin-top: 3rem;
+  height: 500px;
+  overflow: auto;
+}
+.open_madal {
+  background-color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: "MBC1961GulimM";
+  transition: 0.3s;
+}
+.open_madal:hover {
+  color: var(--point2);
+}
+
+/* 개인정보 모달 */
+.modal2 {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 700px;
+}
+.modal_wrap2 {
+  display: flex;
+  justify-content: space-between;
+}
+.modal_close2 {
+  padding-right: 30px;
+  color: var(--point2);
+}
+.modal_content2 {
+  position: absolute;
+  top: 35%;
+
+  width: 900px;
+  height: 700px;
+
+  padding: 40px;
+
+  background-color: rgb(248, 247, 245);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateY(-50%);
+}
+h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--gray2);
+  border-bottom: 1px solid var(--gray2);
+  padding-bottom: 3rem;
+}
+.modal_content2 .modala2 {
+  margin-top: 3rem;
+  height: 500px;
+  overflow: auto;
+}
+.open_madal2 {
+  background-color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: "MBC1961GulimM";
+  transition: 0.3s;
+}
+.open_madal2:hover {
+  color: var(--point2);
+}

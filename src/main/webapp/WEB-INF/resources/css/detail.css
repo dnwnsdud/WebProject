@@ -1,0 +1,573 @@
+@charset 'utf-8';
+@font-face {
+  font-family: "MBC1961GulimM";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  font-family: "MBC1961GulimM";
+  --point1: #c1dcdc;
+  --point2: #ff0558;
+  --gray1: #1e1e1e;
+  --gray2: #5f5f5f;
+  --gray3: #bbbbbb;
+  --white: #fff;
+  --white2: rgba(255, 255, 255, 0.8);
+  --gap-big: 50px;
+  --gap-small: 32px;
+  --gap-ss: 20px;
+  font-size: 10px;
+}
+/* 헤더 부분 시작*/
+.hd {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 60px;
+  z-index: 9999;
+  background-color: none;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.3s;
+  color: var(--white);
+
+}
+.hd svg {
+  width: 168px;
+  height: auto;
+}
+
+.mw {
+  width: calc(100% - calc(var(--gap-big) * 3));
+  height: 60px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: var(--gap-ss);
+  max-width: 1320px;
+}
+.gnb {
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+  top: 25px;
+  left: 200px;
+  position: absolute;
+  width: 200px;
+ 
+}
+.gnb a {
+  transition: 0.3s;
+}
+.gnb a:hover {
+  color: var(--point2);
+  text-decoration: none;
+}
+.click {
+  display: flex;
+  gap: 10px;
+}
+
+.click input {
+  background-color: transparent;
+  width: 300px;
+  height: 30px;
+  border: 1px solid var(--white);
+  padding-left: var(--gap-ss);
+}
+
+.click input:focus {
+  outline: none;
+}
+.log {
+  font-size: 15px;
+  color: var(--white);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.join {
+  padding: 0 15px 0 15px;
+  font-size: 15px;
+  color: var(--white);
+  border: 1px solid var(--gray3);
+  background-color: transparent;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.log {
+  transition: 0.3s;
+}
+.log:hover {
+  color: var(--point2) !important;
+  text-decoration: none !important;
+}
+/* 헤더 부분 끝*/
+/* 스크롤 내릴시 헤더 변경 이벤트 시작*/
+.hd.on {
+  background-color: var(--white);
+  color: var(--gray2);
+    border-bottom: 1px dotted var(--gray3);
+}
+
+.hd.on input {
+  background-color: rgb(243, 240, 240);
+  color: var(--gray1);
+}
+
+.hd.on .log {
+  color: var(--gray2);
+  border: none;
+  outline: none;
+  background-color: var(--white);
+}
+.hd.on .join {
+  color: var(--gray2);
+  border: 1px solid var(--gray3);
+  background-color: var(--white);
+}
+
+/* 스크롤 내릴시 헤더 변경 이벤트 끝*/
+/* 영화 메인이미지 시작 */
+.wrap {
+  overflow: hidden;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.con1 {
+  width: 100%;
+  position: relative;
+  padding-bottom: var(--gap-big);
+}
+.con1 div img {
+  height: 600px;
+}
+.con1 img {
+  width: 100%;
+  height: 100%;
+}
+.content {
+  position: absolute;
+  z-index: 99;
+  color: var(--white);
+  top: 350px;
+  left: 350px;
+}
+.content strong {
+  font-size: var(--gap-small);
+  line-height: var(--gap-big);
+}
+.content span {
+  font-size: 1.5rem;
+  line-height: 3rem;
+}
+/* 영화 메인 이미지 끝 */
+/* 요약부분 시작 */
+.con2 {
+  height: 600px;
+  background-color: rgb(245, 242, 242);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.dec {
+  display: flex;
+  gap: 50px;
+}
+.st li {
+  width: 400px;
+  height: 600px;
+}
+.st img {
+  width: 100%;
+  height: 100%;
+}
+
+.con2 .su {
+  width: 100%;
+  height: 600px;
+  padding: 2rem;
+  font-size: 2rem;
+  color: var(--gray2);
+}
+.su .co {
+  width: 100%;
+  padding: var(--gap-small);
+  height: 100%;
+  border: 1px dotted #1e1e1e;
+  border-radius: 1rem;
+}
+/* 요약 부분 끝 */
+
+/* 출연 제작 시작 */
+.con4 {
+  padding-top: var(--gap-big);
+}
+.con4 ul {
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+}
+.con4 img {
+  height: 80px;
+  width: 100%;
+  border-radius: 0.6rem;
+}
+.con4 ul li {
+  width: 100%;
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 1px dotted var(--gray2);
+  cursor: pointer;
+}
+.con4 ul li p {
+  padding-top: 1rem;
+}
+.con4 strong {
+  font-size: 1.6rem;
+}
+.con4 span {
+  line-height: 2rem;
+}
+/* 출연 제작 끝 */
+/* 갤러리 시작 */
+.con5 {
+  padding-top: var(--gap-big);
+}
+.con5 .slide1 {
+  padding-top: 2rem;
+}
+.con5 img {
+  width: 100%;
+  height: 300px;
+}
+/* 갤러리 끝 */
+/* 동영상 시작 */
+.con6 {
+  padding-top: var(--gap-big);
+}
+
+.con6 .slide2 li {
+  position: relative;
+  width: 1320px;
+  padding: 23%;
+}
+.con6 li iframe {
+  position: absolute;
+  width: 920px;
+  height: 580px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.con6 li iframe::-webkit-scrollbar,
+.con6 .slide2 li::-webkit-scrollbar {
+  display: none;
+}
+/* 동영상 끝 */
+/*이 작품이 담긴 컬렉션 시작 */
+.con7 {
+  padding-top: 3rem;
+}
+.con7 .slide3 {
+  padding-top: 2rem;
+  /* 880 500 */
+}
+
+.slide3 .gr {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  border: 3px solid var(--gray3);
+  border-radius: 1rem;
+}
+.gr img {
+  width: 100%;
+  height: 100%;
+  border: 3px solid var(--gray3);
+}
+.con7 p {
+  padding-top: 1.8rem;
+  font-size: var(--gap-ss);
+}
+/*이 작품이 담긴 컬렉션 끝 */
+/* 비슷한 작품 시작 */
+.con8 {
+  padding-top: var(--gap-big);
+  padding-bottom: 5rem;
+}
+.con8 .same ul {
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+.con8 li {
+  cursor: pointer;
+}
+.con8 li img{
+	width:100%;
+	height:250px;
+}
+.con8 strong {
+  font-size: 1.8rem;
+  line-height: 3rem;
+}
+.con8 span {
+  font-size: 1.3rem;
+  color: var(--gray3);
+  line-height: 2rem;
+}
+/* 비슷한 작품 끝 */
+/* 평가 들어가는 곳 */
+.con9 {
+  margin-top: var(--gap-small);
+  border: 1px solid black;
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  color: var(--white);
+  background-color: rgb(10, 10, 9);
+}
+
+/* 하단 영역 */
+.down_main {
+  padding-top: var(--gap-ss);
+  padding-bottom: var(--gap-big);
+  background-color: var(--gray1);
+  padding-left: 250px;
+  padding-right: 250px;
+  width: 100%;
+  color: var(--white);
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.left {
+  padding-left: calc(var(--gap-small) * 2);
+  line-height: 15px;
+}
+.left .tag {
+  padding-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+.tag .first::after,
+.tag .second::after {
+  content: "|";
+  padding-left: 10px;
+}
+
+.left .mail {
+  padding-bottom: 10px;
+}
+.left .name {
+  padding-bottom: var(--gap-small);
+}
+.right {
+  padding-right: calc(var(--gap-small) * 4);
+}
+.right button {
+  color: var(--white);
+  border: 1px solid var(--white);
+  padding-right: 25px;
+  font-size: 1.3rem;
+  background-color: var(--gray1);
+  outline: none;
+}
+.right div {
+  padding-top: calc(var(--gap-ss) * 4);
+  display: flex;
+  gap: 10px;
+}
+/* 스와이퍼 버튼 */
+.swiper-button-next {
+  background-color: #00000069;
+  right: 0;
+  top: 50%;
+}
+.swiper-button-next::after {
+  color: #fff;
+  font-size: 30px;
+}
+.swiper-button-prev {
+  background-color: #00000069;
+  left: 0;
+  top: 50%;
+}
+.swiper-button-prev::after {
+  color: #fff;
+  font-size: 30px;
+}
+.swiper-button-disabled {
+  display: none;
+}
+
+/*리뷰 팝업*/
+.popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 600px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  z-index: 1001;
+  display: none;
+}
+
+.popup h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.popup input[type="text"],
+.popup textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.popup button {
+  padding: 10px 20px;
+  background-color: #0068d8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #0068d8;
+}
+
+#reviewPopup {
+  width: 50%;
+  height: auto;
+}
+
+#commentsPopup {
+  width: 40%;
+  height: auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+#commentsList {
+  list-style: none;
+  padding: 0;
+  max-height: auto;
+  overflow-y: auto;
+}
+
+#commentsList li {
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment-input {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.comment-input input {
+  padding: 5px;
+  margin-right: 5px;
+  width: calc(100% - 60px);
+}
+
+.comment-input button {
+  padding: 5px 5px;
+}
+
+.comment-input textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#genreOptions,
+#reviewOptions {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+#genreOptions option,
+#reviewOptions option {
+  padding: 5px;
+  background-color: white;
+  color: black;
+}
+
+#reviewOptions {
+  margin-left: 30px;
+}
+
+.review-form input,
+.review-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.review-form button {
+  padding: 10px 20px;
+}
+
+.review-form {
+  margin-bottom: 20px;
+}
+
+.review-form button {
+  padding: 10px 20px;
+}
+
+.toggleReviewPopup {
+  position: absolute;
+  right: 100px;
+  top: 7px;
+  padding: 10px 20px;
+  font-size: 13px;
+}

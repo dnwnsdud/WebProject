@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="User.UserDAO"%>
+<%@ page import="dao.userDAO"%>
 <%@ page import="java.io.PrintWriter"%>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
-<jsp:useBean id="user" class="com.jsp.dto.User" scope="page" />
+<jsp:useBean id="user" class="dto.userDTO" scope="page" />
 <jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userPassword" />
 <jsp:setProperty name="user" property="userName" />
@@ -18,37 +15,38 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입 액션</title>
 </head>
 <body>
 	<%
-	System.out.println(user.getUserID());
 	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	PrintWriter script = response.getWriter(); // script 변수 선언
+
 	if (user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
 			|| user.getUserNickName() == null || user.getUserEmail() == null || user.getUserResistNum() == null
 			|| user.getUserTel() == null) {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('입력이 안 된 사항이 있습니다. 확인해주세요.')");
-		script.println("history.back()");
-		script.println("</script>");
+		showAlert("입력이 안 된 사항이 있습니다.\\n확인해주세요.", script);
 	} else {
-		UserDAO userDAO = new UserDAO();
+		userDAO userDAO = new userDAO();
 		int result = userDAO.signUp(user);
-		if (result == -1) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('이미 존재하는 아이디입니다.')");
-			script.println("history.back()");
-			script.println("</script>");
-		} else {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("location.href = 'ok.jsp'");
-			script.println("</script>");
-
+		if(result == -2){
+			showAlert("이미 가입되어 있습니다.", script);
+		}else if (result == -1) {
+			showAlert("이미 존재하는 아이디입니다.", script);
+			}else if (result == 1) {
+			showAlert("회원가입 성공하였습니다.", script);
+			response.sendRedirect("./login.jsp");
 		}
 	}
 	%>
+
+	<%!// 경고창 표시 함수
+	private void showAlert(String message, PrintWriter script) {
+		script.println("<script>");
+		script.println("alert('" + message + "')");
+		script.println("history.back()");
+		script.println("</script>");
+	}%>
 </body>
 </html>
