@@ -28,6 +28,6 @@ public class EditPostServlet extends HttpServlet {
 		dao.editPost(updatedPost);
 
 		// 수정 후 상세 페이지로 이동
-		response.sendRedirect("postDetail.jsp?postId=" + postId);
+		response.sendRedirect("notice_detail.jsp?postId=" + postId);
 	}
 }

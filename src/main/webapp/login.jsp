@@ -12,6 +12,8 @@
 <body>
 
 	<%
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
 	if (request.getParameter("fail") != null) {
 	%>
 	<script>
@@ -19,7 +21,7 @@
 	</script>
 		<div class="wrap">
 		<h1>
-			<a href="./index.html"><img
+			<a href="./index.jsp"><img
 				src="/resources/WATCHA_PEDIA_Logo_Main1.png" alt="" /></a>
 		</h1>
 		<ul>
@@ -45,7 +47,7 @@
 
 	<div class="wrap">
 		<h1>
-			<a href="./index.html"><img
+			<a href="./index.jsp"><img
 				src="/resources/WATCHA_PEDIA_Logo_Main1.png" alt="" /></a>
 		</h1>
 		<ul>

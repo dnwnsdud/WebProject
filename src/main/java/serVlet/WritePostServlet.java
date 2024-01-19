@@ -45,6 +45,6 @@ public class WritePostServlet extends HttpServlet {
         postDAO.createPost(newPost);
 
 
-        response.sendRedirect(request.getContextPath() + "/post.jsp");
+        response.sendRedirect(request.getContextPath() + "/notice_main.jsp");
     }
 }

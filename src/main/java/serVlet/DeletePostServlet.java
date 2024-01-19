@@ -35,6 +35,6 @@ public class DeletePostServlet extends HttpServlet {
 		}
 
 		// 게시글 목록 페이지로 이동
-		response.sendRedirect("post.jsp");
+		response.sendRedirect("notice_main.jsp");
 	}
 }

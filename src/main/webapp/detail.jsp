@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="org.json.*, java.util.*, java.text.SimpleDateFormat, com.jsp.system.Ajax"%>
+<%@ page
+	import="org.json.*, java.util.*, java.text.SimpleDateFormat, com.jsp.system.Ajax,dto.userDTO"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>detail</title>
 
-<link
-	href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css"
-	rel="stylesheet" />
-<link
-	href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
-	rel="stylesheet" />
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -28,19 +24,17 @@
 <script src="/resources/detail.js" defer></script>
 </head>
 <%
-String filename = "jsonMovie22.json";
-JSONObject jsonMovie = Ajax.readFile(filename);
-JSONObject movie = jsonMovie.getJSONArray("movielist").getJSONObject(1);
-filename = "jsonPerson4.json";
-JSONObject jsonDirector = Ajax.readFile(filename);
-filename = "jsonPerson14.json";
-JSONObject jsonActor = Ajax.readFile(filename);
+userDTO loggedInUser = (userDTO) session.getAttribute("loggedInUser");
+JSONObject jsonMovie = Ajax.JsonTObj(Ajax.GETO("http://localhost:9999/movie"));
+JSONObject movie = jsonMovie.getJSONArray("movielist").getJSONObject(Integer.parseInt(request.getParameter("movieid")));
+JSONObject jsonDirector = Ajax.JsonTObj(Ajax.GETO("http://localhost:9999/director"));
+JSONObject jsonActor = Ajax.JsonTObj(Ajax.GETO("http://localhost:9999/actor"));
 %>
 <body>
 	<header class="hd">
 		<nav class="mw">
 			<h1 class="logo">
-				<a href="./index.html"><svg xmlns="http://www.w3.org/2000/svg"
+				<a href="./index.jsp"><svg xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 805.16 175">
               <defs>
                 <style>
@@ -82,17 +76,30 @@ JSONObject jsonActor = Ajax.readFile(filename);
             </svg> </a>
 			</h1>
 			<div class="gnb">
-				<a href="./movie.html">영화</a> <a href="./animation.html">애니메이션</a> <a
-					href="./review.html">리뷰</a>
+				<a href="./movie.jsp">영화</a> <a href="./animation.jsp">애니메이션</a> <a
+					href="./notice_main.jsp">리뷰</a>
 			</div>
 			<div class="click">
+			
 				<input type="text" placeholder="콘텐츠 등을 검색해보세요!" />
+				<%
+				if (loggedInUser != null) {
+				%>
 				<button class="log">
-					<a href="./login.html" class="log">로그인</a>
+					<a href="./logout.jsp">로그아웃</a>
+				</button>
+				<%
+				} else {
+				%>
+				<button class="log">
+					<a href="./login.jsp">로그인</a>
 				</button>
 				<button class="join">
-					<a href="./terms.html" class="log">회원가입</a>
+					<a href="./terms.html">회원가입</a>
 				</button>
+				<%
+				}
+				%>
 			</div>
 		</nav>
 	</header>
@@ -108,27 +115,28 @@ JSONObject jsonActor = Ajax.readFile(filename);
 				alt="영화메인이미지" />
 		</div>
 		<div class="content">
-			<strong><%=movie.getString("movieNm")%></strong><br /> <span><%=movie.getString("movieNm")%></span><br />
-			<span><%=movie.getString("openDt").substring(0, 4)%> · <%
+			<strong><%=movie.getString("movienm")%></strong><br /> <span><%=movie.getString("movienm")%></span><br />
+			<span><%=movie.getString("opendt").substring(0, 4)%> · <%
 			JSONArray genres = movie.getJSONArray("genres");
 			for (int i = 0; i < genres.length() - 1; i += 1) {
-				out.print(genres.getJSONObject(i).getString("genreNm"));
+				out.print(genres.getJSONObject(i).getString("genrenm"));
 				out.print("/");
 			}
-			out.print(genres.getJSONObject(genres.length() - 1).getString("genreNm"));
-			%> · <%=movie.getJSONArray("nations").getJSONObject(0).getString("nationNm")%></span><br />
-			<span><%=movie.getString("showTm")%>분 · <%=movie.getString("audits")%></span><br />
-			<% 
+			out.print(genres.getJSONObject(genres.length() - 1).getString("genrenm"));
+			%> · <%=movie.getJSONArray("nations").getJSONObject(0).getString("nationnm")%></span><br />
+			<span><%=movie.getInt("showtm")%>분 · <%=movie.getString("audits")%></span><br />
+			<%
 			String date1 = "20231227";
-			String date2 = movie.getString("openDt").replaceAll("-","");
+			String date2 = movie.getString("opendt").replaceAll("-", "");
 			// String date2 = movie.getString("openDt").split("T")[0].replaceAll("-","");
 			SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
 			Calendar cal = Calendar.getInstance();
 			Date dt1 = dtFormat.parse(date1);
 			Date dt2 = dtFormat.parse(date2);
-			long dif = ((dt1.getTime() - dt2.getTime())/1000)/(24*60*60);
+			long dif = ((dt1.getTime() - dt2.getTime()) / 1000) / (24 * 60 * 60);
 			%>
-			<span>개봉 <%=dif %>일째 · 누적관객 <%=Math.floor(((double)movie.getInt("audiAcc"))/10000) %>만명</span>
+			<span>개봉 <%=dif%>일째 · 누적관객 <%=Math.floor(((double) movie.getInt("audiacc")) / 10000)%>만명
+			</span>
 		</div>
 	</section>
 	<div class="wrap">
@@ -144,7 +152,7 @@ JSONObject jsonActor = Ajax.readFile(filename);
 				</ul>
 			</div>
 		</section>
-		
+
 		<section class="con4">
 			<p style="font-size: 2.7rem">출연/제작</p>
 			<ul>
@@ -154,16 +162,15 @@ JSONObject jsonActor = Ajax.readFile(filename);
 				%>
 				<li>
 					<%
-					Integer diKey = directors.getJSONObject(i).getInt("peopleID");
+					Integer diKey = directors.getJSONObject(i).getInt("peopleid");
 					JSONObject director = jsonDirector.getJSONArray("directors").getJSONObject(diKey);
 					%>
 					<div>
 						<img src="<%=director.getString("profile_path")%>" alt="사람" />
 					</div>
 					<p>
-						<strong><%=directors.getJSONObject(i).getString("peopleNm")%></strong>
-						<br /> 
-						<span>감독</span>
+						<strong><%=directors.getJSONObject(i).getString("peoplenm")%></strong>
+						<br /> <span>감독</span>
 					</p>
 				</li>
 				<%
@@ -172,27 +179,43 @@ JSONObject jsonActor = Ajax.readFile(filename);
 				<%
 				JSONArray actors = movie.getJSONArray("actors");
 				int end = 8;
-				if (actors.length() < 8) end = actors.length();
+				if (actors.length() < 8)
+					end = actors.length();
 				for (int i = 0; i < end; i += 1) {
 				%>
 				<li>
 					<%
-					int acKey = actors.getJSONObject(i).getInt("peopleID");
+					int acKey = actors.getJSONObject(i).getInt("peopleid");
+					System.out.println(acKey);
 					JSONObject actor = jsonActor.getJSONArray("actors").getJSONObject(acKey);
 					%>
 					<div>
+						<%
+						if (!actor.has("profile_path")) {
+						%>
+						<img src="/resources/person.png" alt="사람" />
+						<%
+						} else if (actor.getString("profile_path").equalsIgnoreCase("null")) {
+						%>
+						<img src="/resources/person.png" alt="사람" />
+						<%
+						} else {
+						%>
 						<img src="<%=actor.getString("profile_path")%>" alt="사람" />
+						<%
+						}
+						%>
 					</div>
 					<p>
-						<strong><%=actors.getJSONObject(i).getString("peopleNm")%></strong>
-						<br /> 
-						<span>배우 | <%=actors.getJSONObject(i).getString("cast")%>역</span>
+						<strong><%=actors.getJSONObject(i).getString("peoplenm")%></strong>
+						<br /> <span>배우 | <%=actors.getJSONObject(i).getString("cast")%>역
+						</span>
 					</p>
 				</li>
 				<%
 				}
 				%>
-				
+
 			</ul>
 		</section>
 		<section class="con5">
@@ -218,24 +241,23 @@ JSONObject jsonActor = Ajax.readFile(filename);
 		</section>
 		<section class="con6">
 			<p style="font-size: 2.7rem">동영상</p>
-			<div class="swiper slide2">
+			<div class="swiper slide4">
 				<ul class="swiper-wrapper">
 					<%
-					JSONArray vods = movie.getJSONArray("vods");
-					for (int i = 0; i < vods.length(); i += 1) {
+					if (movie.get("vods").getClass().getName().equalsIgnoreCase("org.json.JSONArray")) {
+						JSONArray vods = movie.getJSONArray("vods");
+						for (int i = 0; i < vods.length(); i += 1) {
 					%>
-					<li class="swiper-slide">
-					<iframe name="vods"
-							
-							src="<%=vods.getJSONObject(i).getString("vodUrl")%>"
-							frameborder=0 scrolling=no ></iframe><br /> 
-					<span><%=vods.getJSONObject(i).getString("vodClass")%></span></li>
+					<li class="swiper-slide"><iframe name="vods"
+							src="<%=vods.getJSONObject(i).getString("vodurl")%>"
+							frameborder=0 scrolling=no></iframe><br /> <span><%=vods.getJSONObject(i).getString("vodclass")%></span></li>
 					<%
+					}
 					}
 					%>
 				</ul>
-				<div class="swiper-button-next next2"></div>
-				<div class="swiper-button-prev prev2"></div>
+				<div class="swiper-button-next next4"></div>
+				<div class="swiper-button-prev prev4"></div>
 			</div>
 		</section>
 		<section class="con7">
@@ -243,138 +265,182 @@ JSONObject jsonActor = Ajax.readFile(filename);
 			<div class="swiper slide3">
 				<ul class="swiper-wrapper">
 					<li class="swiper-slide">
-					<%String url1="http://localhost:9999/movie?genre=%EC%95%A1%EC%85%98"; 
-					JSONObject col1 = Ajax.JsonTObj(Ajax.GETO(url1));
-					JSONArray col2 = col1.getJSONArray("movielist");
-					%>
+						<%
+						String url1 = "http://localhost:9999/movie?genre=%EC%95%A1%EC%85%98";
+						JSONObject col1 = Ajax.JsonTObj(Ajax.GETO(url1));
+						JSONArray col2 = col1.getJSONArray("movielist");
+						%>
 						<div class="gr">
-							<%for(int i = 0; i < 4; i+=1) {%>
-							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>" alt="" />
-							<%} %>
+							<%
+							for (int i = 0; i < 4; i += 1) {
+							%>
+							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>"
+								alt="" />
+							<%
+							}
+							%>
 						</div>
-						<p>액션영화</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
+						<p>액션영화</p> <br /> <span style="font-size: 1.3rem">종아요 수 </span>
 					</li>
 					<li class="swiper-slide">
-					<%url1="http://localhost:9999/movie?genre=%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98"; 
-					col1 = Ajax.JsonTObj(Ajax.GETO(url1));
-					col2 = col1.getJSONArray("movielist");
-					%>
-						<div class="gr">
-							<%for(int i = 0; i < 4; i+=1) {%>
-							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>" alt="" />
-							<%} %>
-						</div>
-						<p>어드벤처</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
-					</li>
-					<li class="swiper-slide">
-					<%url1="http://localhost:9999/movie?keywords=%EC%8B%A4%EC%A1%B4%EC%9D%B8%EB%AC%BC"; 
-					col1 = Ajax.JsonTObj(Ajax.GETO(url1));
-					col2 = col1.getJSONArray("movielist");
-					%>
-						<div class="gr">
-							<%for(int i = 0; i < 4; i+=1) {%>
-							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>" alt="" />
-							<%} %>
-						</div>
-						<p>실존인물</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
-					</li>
-					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?keywords=[%EC%BD%98%EC%84%9C%ED%8A%B8,%EC%95%84%EC%9D%B4%EB%8F%8C]"; 
+						<%
+						url1 = "http://localhost:9999/movie?genre=%EC%96%B4%EB%93%9C%EB%B2%A4%EC%B2%98";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<%for(int i = 0; i < 4; i+=1) {%>
-							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>" alt="" />
-							<%} %>
+							<%
+							for (int i = 0; i < 4; i += 1) {
+							%>
+							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>"
+								alt="" />
+							<%
+							}
+							%>
 						</div>
-						<p>콘서트</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
+						<p>어드벤처</p> <br /> <span style="font-size: 1.3rem">종아요 수 </span>
 					</li>
 					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?keywords=%EC%8B%9C%EB%A6%AC%EC%A6%88"; 
+						<%
+						url1 = "http://localhost:9999/movie?keywords=%EC%8B%A4%EC%A1%B4%EC%9D%B8%EB%AC%BC";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<%for(int i = 0; i < 4; i+=1) {%>
-							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>" alt="" />
-							<%} %>
+							<%
+							for (int i = 0; i < 4; i += 1) {
+							%>
+							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>"
+								alt="" />
+							<%
+							}
+							%>
+						</div>
+						<p>실존인물</p> <br /> <span style="font-size: 1.3rem">종아요 수 </span>
+					</li>
+					<li class="swiper-slide">
+						<%
+						url1 = "http://localhost:9999/movie?keywords=[%EC%BD%98%EC%84%9C%ED%8A%B8,%EC%95%84%EC%9D%B4%EB%8F%8C]";
+						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
+						col2 = col1.getJSONArray("movielist");
+						%>
+						<div class="gr">
+							<%
+							for (int i = 0; i < 4; i += 1) {
+							%>
+							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>"
+								alt="" />
+							<%
+							}
+							%>
+						</div>
+						<p>콘서트</p> <br /> <span style="font-size: 1.3rem">종아요 수 </span>
+					</li>
+					<li class="swiper-slide">
+						<%
+						url1 = "http://localhost:9999/movie?keywords=%EC%8B%9C%EB%A6%AC%EC%A6%88";
+						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
+						col2 = col1.getJSONArray("movielist");
+						%>
+						<div class="gr">
+							<%
+							for (int i = 0; i < 4; i += 1) {
+							%>
+							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>"
+								alt="" />
+							<%
+							}
+							%>
 						</div>
 						<p>시리즈 영화</p> <br /> <span style="font-size: 1.3rem">종아요 수
 					</span>
 					</li>
 					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?keywords=%EB%AA%A8%ED%97%98&genre=%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98"; 
+						<%
+						url1 = "http://localhost:9999/movie?keywords=%EB%AA%A8%ED%97%98&genre=%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<img src="<%=col2.getJSONObject(0).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(1).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(3).getString("poster_path")%>" alt="" /> <img
+							<img src="<%=col2.getJSONObject(0).getString("poster_path")%>"
+								alt="" /> <img
+								src="<%=col2.getJSONObject(1).getString("poster_path")%>" alt="" />
+							<img src="<%=col2.getJSONObject(3).getString("poster_path")%>"
+								alt="" /> <img
 								src="<%=col2.getJSONObject(5).getString("poster_path")%>" alt="" />
 						</div>
-						<p>모험 애니메이션</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
+						<p>모험 애니메이션</p> <br /> <span style="font-size: 1.3rem">종아요
+							수 </span>
 					</li>
 					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?keywords=%EC%9D%B8%EC%83%9D"; 
+						<%
+						url1 = "http://localhost:9999/movie?keywords=%EC%9D%B8%EC%83%9D";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<%for(int i = 0; i < 4; i+=1) {%>
-							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>" alt="" />
-							<%} %>
+							<%
+							for (int i = 0; i < 4; i += 1) {
+							%>
+							<img src="<%=col2.getJSONObject(i).getString("poster_path")%>"
+								alt="" />
+							<%
+							}
+							%>
 						</div>
 						<p>휴먼드라마</p> <br /> <span style="font-size: 1.3rem">종아요 수
 					</span>
 					</li>
 					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?nation=%ED%95%9C%EA%B5%AD"; 
+						<%
+						url1 = "http://localhost:9999/movie?nation=%ED%95%9C%EA%B5%AD";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<img src="<%=col2.getJSONObject(0).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(1).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(4).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(18).getString("poster_path")%>" alt="" />
+							<img src="<%=col2.getJSONObject(0).getString("poster_path")%>"
+								alt="" /> <img
+								src="<%=col2.getJSONObject(1).getString("poster_path")%>" alt="" />
+							<img src="<%=col2.getJSONObject(4).getString("poster_path")%>"
+								alt="" /> <img
+								src="<%=col2.getJSONObject(18).getString("poster_path")%>"
+								alt="" />
 						</div>
-						<p>한국영화</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
+						<p>한국영화</p> <br /> <span style="font-size: 1.3rem">종아요 수 </span>
 					</li>
 					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?nation=%EC%9D%BC%EB%B3%B8"; 
+						<%
+						url1 = "http://localhost:9999/movie?nation=%EC%9D%BC%EB%B3%B8";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<img src="<%=col2.getJSONObject(2).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(3).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(6).getString("poster_path")%>" alt="" /> <img
+							<img src="<%=col2.getJSONObject(2).getString("poster_path")%>"
+								alt="" /> <img
+								src="<%=col2.getJSONObject(3).getString("poster_path")%>" alt="" />
+							<img src="<%=col2.getJSONObject(6).getString("poster_path")%>"
+								alt="" /> <img
 								src="<%=col2.getJSONObject(9).getString("poster_path")%>" alt="" />
 						</div>
 						<p>일본 영화</p> <br /> <span style="font-size: 1.3rem">종아요 수
 					</span>
 					</li>
 					<li class="swiper-slide">
-						<%url1="http://localhost:9999/movie?nation=%EC%9D%BC%EB%B3%B8"; 
+						<%
+						url1 = "http://localhost:9999/movie?nation=%EC%9D%BC%EB%B3%B8";
 						col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 						col2 = col1.getJSONArray("movielist");
 						%>
 						<div class="gr">
-							<img src="<%=col2.getJSONObject(0).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(1).getString("poster_path")%>" alt="" /> <img
-								src="<%=col2.getJSONObject(3).getString("poster_path")%>" alt="" /> <img
+							<img src="<%=col2.getJSONObject(0).getString("poster_path")%>"
+								alt="" /> <img
+								src="<%=col2.getJSONObject(1).getString("poster_path")%>" alt="" />
+							<img src="<%=col2.getJSONObject(3).getString("poster_path")%>"
+								alt="" /> <img
 								src="<%=col2.getJSONObject(6).getString("poster_path")%>" alt="" />
 						</div>
-						<p>일본 유명 애니메이션 극장판</p> <br /> <span style="font-size: 1.3rem">종아요 수
-					</span>
+						<p>일본 유명 애니메이션 극장판</p> <br /> <span style="font-size: 1.3rem">종아요
+							수 </span>
 					</li>
 				</ul>
 				<div class="swiper-button-next next3"></div>
@@ -384,101 +450,103 @@ JSONObject jsonActor = Ajax.readFile(filename);
 		<section class="con8">
 			<p style="font-size: 2.7rem">비슷한 시기의 개봉작품</p>
 			<%
-			int movieID = movie.getInt("movieID");
-			Map<Integer, String> map = new LinkedHashMap<Integer,String>();
+			int movieID = movie.getInt("movieid");
+			Map<Integer, String> map = new LinkedHashMap<Integer, String>();
 			map.put(movieID, movie.getString("poster_path"));
 			int count = 0;
 			String result = "";
-			String dt = movie.getString("openDt");
+			String dt = movie.getString("opendt");
 			String ye = dt.split("-")[0];
 			String mo = dt.split("-")[1];
 			String da = dt.split("-")[2];
-			url1 = "http://localhost:9999/movie?"+"year="+ye+"&month="+mo;
+			url1 = "http://localhost:9999/movie?" + "year=" + ye + "&month=" + mo;
 			System.out.println(url1);
 			col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 			col2 = col1.getJSONArray("movielist");
 			System.out.println(col2.getJSONObject(0).getString("movienm"));
-			
-			for (int i = 0; i < col2.length(); i+=1) {
-				if(!map.containsKey(col2.getJSONObject(i).getInt("movieid"))){
+
+			for (int i = 0; i < col2.length(); i += 1) {
+				if (!map.containsKey(col2.getJSONObject(i).getInt("movieid"))) {
 					map.put(col2.getJSONObject(i).getInt("movieid"), col2.getJSONObject(i).getString("poster_path"));
-					count+=1;
+					count += 1;
 				}
 			}
 			System.out.println(count);
-			Integer ovmo = Integer.valueOf(mo)-1;
-			Integer unmo = Integer.valueOf(mo)+1;
-			while(count < 7) {
-				System.out.println("["+ovmo+","+unmo+"]");
-				url1 = "http://localhost:9999/movie?"+"year="+ye+"&over_month="+(ovmo+"")+"&under_month="+(unmo+"");
+			Integer ovmo = Integer.valueOf(mo) - 1;
+			Integer unmo = Integer.valueOf(mo) + 1;
+			while (count < 7) {
+				System.out.println("[" + ovmo + "," + unmo + "]");
+				url1 = "http://localhost:9999/movie?" + "year=" + ye + "&over_month=" + (ovmo + "") + "&under_month=" + (unmo + "");
 				System.out.println(url1);
 				col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 				col2 = col1.getJSONArray("movielist");
-				for (int i = 0; i < col2.length(); i+=1) {
-					if(!map.containsKey(col2.getJSONObject(i).getInt("movieid"))){
-						map.put(col2.getJSONObject(i).getInt("movieid"), col2.getJSONObject(i).getString("poster_path"));
-						count+=1;
+				for (int i = 0; i < col2.length(); i += 1) {
+					if (!map.containsKey(col2.getJSONObject(i).getInt("movieid"))) {
+				map.put(col2.getJSONObject(i).getInt("movieid"), col2.getJSONObject(i).getString("poster_path"));
+				count += 1;
 					}
 				}
-				if(unmo < 12 && ovmo >1){
-					ovmo = ovmo-1;
-					unmo = unmo+1;
-				} 
-				else if (unmo < 12) {
-					unmo = unmo+1;
-				}
-				else if (ovmo >1) {
-					ovmo = ovmo-1;
-				}
-				else break;
+				if (unmo < 12 && ovmo > 1) {
+					ovmo = ovmo - 1;
+					unmo = unmo + 1;
+				} else if (unmo < 12) {
+					unmo = unmo + 1;
+				} else if (ovmo > 1) {
+					ovmo = ovmo - 1;
+				} else
+					break;
 				System.out.println(count);
 			}
-			Integer ovye = Integer.valueOf(ye)-1;
-			Integer unye = Integer.valueOf(ye)+1;
-			while(count < 7) {
+			Integer ovye = Integer.valueOf(ye) - 1;
+			Integer unye = Integer.valueOf(ye) + 1;
+			while (count < 7) {
 				System.out.println(unye);
-				url1 = "http://localhost:9999/movie?"+"over_year="+(ovye+"")+"&under_year="+(unye+"");
+				url1 = "http://localhost:9999/movie?" + "over_year=" + (ovye + "") + "&under_year=" + (unye + "");
 				System.out.println(url1);
 				col1 = Ajax.JsonTObj(Ajax.GETO(url1));
 				col2 = col1.getJSONArray("movielist");
-				for (int i = 0; i < col2.length(); i+=1) {
-					if(!map.containsKey(col2.getJSONObject(i).getInt("movieid"))){
-						map.put(col2.getJSONObject(i).getInt("movieid"), col2.getJSONObject(i).getString("poster_path"));
-						count+=1;
+				for (int i = 0; i < col2.length(); i += 1) {
+					if (!map.containsKey(col2.getJSONObject(i).getInt("movieid"))) {
+				map.put(col2.getJSONObject(i).getInt("movieid"), col2.getJSONObject(i).getString("poster_path"));
+				count += 1;
 					}
 				}
-				ovye = ovye-1;
-				unye = unye+1;
+				ovye = ovye - 1;
+				unye = unye + 1;
 				System.out.println(count);
 			}
 			System.out.println(count);
 			List<Integer> keyList = new ArrayList<>(map.keySet());
 			%>
 			<div class="same">
-				<ul><%
-					for (int i = 1; i < 7; i+=1) { 
+				<ul>
+					<%
+					for (int i = 1; i < 7; i += 1) {
 						JSONObject movie1 = jsonMovie.getJSONArray("movielist").getJSONObject(keyList.get(i));
-						if (map.get(keyList.get(i)).equalsIgnoreCase("검색결과 없음")) {%>
-							<li><img src="/resources/icon-no-image.png" alt="" />
-						<%}
-						else { %>
-							<li><img src="<%=map.get(keyList.get(i))%>" alt="" />
-						<%} %>	
+						if (map.get(keyList.get(i)).equalsIgnoreCase("검색결과 없음")) {
+					%>
+					<li><img src="/resources/icon-no-image.png" alt="" /> <%
+ } else {
+ %>
+					<li><img src="<%=map.get(keyList.get(i))%>" alt="" /> <%
+ }
+ %>
 						<p>
-							<strong><%=movie1.getString("movieNm")%></strong>
-							<br /><span>
-							<%
-							genres = movie1.getJSONArray("genres");
-							for (int j = 0; j < genres.length() - 1; j += 1) {
-								out.print(genres.getJSONObject(j).getString("genreNm"));
-								out.print("/");
-							}
-							out.print(genres.getJSONObject(genres.length() - 1).getString("genreNm"));
-							%>
+							<strong><%=movie1.getString("movienm")%></strong> <br /> <span>
+								<%
+								genres = movie1.getJSONArray("genres");
+								for (int j = 0; j < genres.length() - 1; j += 1) {
+									out.print(genres.getJSONObject(j).getString("genrenm"));
+									out.print("/");
+								}
+								out.print(genres.getJSONObject(genres.length() - 1).getString("genrenm"));
+								%>
 							</span>
 						</p></li>
-						
-					<%}%>
+
+					<%
+					}
+					%>
 				</ul>
 			</div>
 		</section>

@@ -1,56 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인</title>
-    <link rel="stylesheet" href="../css/myrest.css" />
-    <link rel="stylesheet" href="../css/findid.css" />
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="/resources/myrest.css" />
+    <link rel="stylesheet" href="/resources/findid.css" />
   </head>
   <body>
+  <form action="./findAction.jsp" method="post">
     <div class="wrap">
       <h1>
-        <a href="./index.html">
-          <img src="../img/WATCHA_PEDIA_Logo_Main1.png" alt="" />
+        <a href="./index.jsp">
+          <img src="/resources/WATCHA_PEDIA_Logo_Main1.png" alt="" />
         </a>
       </h1>
-      <form id="loginCheck" action="checkid.html">
+      <form id="loginCheck" action="checkid.jsp">
         <ul>
           <li class="log">아이디 찾기</li>
           <li class="mail" >
-            이메일,전화번호,주민등록번호 중 하나를 입력하세요.
+            이메일,전화번호,주민등록번호를 입력하세요.
           </li class="mail">
           <div class="email">
-            <li><input type="text" name="email" placeholder="이메일"/></li>
+            <li><input type="text" name="email" placeholder="이메일" required/></li>
           </div>
           <div class="phone-number">
-            <li><input type="text" name="phone" placeholder="전화 번호" /></li> 
+            <li><input type="text" name="phone" placeholder="전화 번호" required/></li> 
 
           </div>
           <div class="residen-number">
-            <li><input type="text" name="residence" placeholder="주민 등록 번호 ( - 없이 입력하세요.)" /></li> 
+            <li><input type="text" name="residence" placeholder="주민 등록 번호 ( - 없이 입력하세요.)" required/></li> 
           </div>
           <li><button type="submit">다음</button></li>
         </ul>
       </form>
     </div>
-
-
-    <script>
-      document.getElementById('loginCheck').onsubmit = function() {
-          var email = document.getElementsByName('email')[0].value;
-          var phone = document.getElementsByName('phone')[0].value;
-          var residence = document.getElementsByName('residence')[0].value;
-          var inputCount = [email, phone, residence].filter(value => value !== '').length;
-
-          if (inputCount !== 1) {
-              alert('이메일, 전화번호, 주민등록번호 중 하나를 입력해주세요.');
-              return false;
-          }
-          return true;
-      };
-  </script>
-
-
+	</form>
   </body>
 </html>

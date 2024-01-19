@@ -2,14 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.userDAO"%>
 <%@ page import="java.io.PrintWriter"%>
-<jsp:useBean id="user" class="dto.userDTO" scope="page" />
-<jsp:setProperty name="user" property="userID" />
-<jsp:setProperty name="user" property="userPassword" />
-<jsp:setProperty name="user" property="userName" />
-<jsp:setProperty name="user" property="userNickName" />
-<jsp:setProperty name="user" property="userEmail" />
-<jsp:setProperty name="user" property="userResistNum" />
-<jsp:setProperty name="user" property="userTel" />
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +12,21 @@
 <body>
 	<%
 	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	%>
+	
+<jsp:useBean id="user" class="dto.userDTO" scope="page" />
+<jsp:setProperty name="user" property="userID" />
+<jsp:setProperty name="user" property="userPassword" />
+<jsp:setProperty name="user" property="userName" />
+<jsp:setProperty name="user" property="userNickName" />
+<jsp:setProperty name="user" property="userEmail" />
+<jsp:setProperty name="user" property="userResistNum" />
+<jsp:setProperty name="user" property="userTel" />
+	<%
 	PrintWriter script = response.getWriter(); // script 변수 선언
+	
+	System.out.println(request.getParameter("userName"));
 
 	if (user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null
 			|| user.getUserNickName() == null || user.getUserEmail() == null || user.getUserResistNum() == null
@@ -29,11 +35,11 @@
 	} else {
 		userDAO userDAO = new userDAO();
 		int result = userDAO.signUp(user);
-		if (result == -1) {
+		if(result == -1){
 			showAlert("이미 존재하는 아이디입니다.", script);
-		} else if (result == -2) {
+		}else if (result == -2) {
 			showAlert("이미 가입되어 있습니다.", script);
-		} else {
+			}else {
 			showAlert("회원가입 성공하였습니다.", script);
 			response.sendRedirect("./login.jsp");
 		}

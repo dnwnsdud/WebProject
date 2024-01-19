@@ -32,12 +32,12 @@ public class DeleteCommentServlet extends HttpServlet {
 				if (!deleteResult) {
 					return;
 				}
-				response.sendRedirect("postDetail.jsp?postId=" + postId);
+				response.sendRedirect("notice_detail.jsp?postId=" + postId);
 			} else {
 				response.sendRedirect("login.jsp");
 			}
 		} else {
-			response.sendRedirect("postDetail.jsp?postId=" + postId);
+			response.sendRedirect("notice_detail.jsp?postId=" + postId);
 		}
 	}
 }

@@ -31,7 +31,7 @@ if (userID == null) {
 		newPost.setUserId(userID);
 		postDAO.createPost(newPost);
 
-		response.sendRedirect("post.jsp");
+		response.sendRedirect("notice_main.jsp");
 		return;
 	}
 		}
@@ -43,43 +43,42 @@ if (userID == null) {
 <head>
 <meta charset="UTF-8">
 <title>게시글 작성</title>
-<style>
-label {
-	display: block;
-	margin: 10px 0;
-}
-
-textarea {
-	width: 100%;
-	height: 150px;
-	margin-bottom: 10px;
-}
-
-input[type="submit"] {
-	padding: 10px;
-	background-color: #4CAF50;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-</style>
+<link rel="styleSheet" href="/resources/myreset.css">
+<link rel="styleSheet" href="/resources/write.css">
 </head>
 <body>
-	<h2>게시글 작성</h2>
+	<header class="hd">
+		<nav class="mw">
+			<h1 class="logo">
+				<a href="./index.jsp"><img
+					src="/resources/WATCHA_PEDIA_Logo_Main1.png" alt="" /> </a>
+			</h1>
+	</header>
 
-	<form action="<%=request.getContextPath()%>/writePost.jsp?action=writePost"
-		method="POST">
-		<label for="title">제목:</label>
-		<input type="text" id="title"name="title" required>
-		
-		<label for="content">내용:</label>
-		<textarea id="content" name="content" required></textarea>
 
-		<input type="submit" value="게시글 작성">
-	</form>
+	<div class="wrap">
+		<section class="con1">
+			<h2>게시글 작성</h2>
+			<form
+				action="<%=request.getContextPath()%>/writePost.jsp?action=writePost"
+				method="POST">
+				<div class="dec">
+					<label for="title" class="title">제목:</label> <input type="text"
+						placeholder="제목을 입력하세요!"
+						style="width: 500px; height: 30px; font-size: 30px" />
+				</div>
+				<div class="dec2">
+					<label for="content">내용:</label>
+					<textarea id="content" name="content" required></textarea>
+					<input class="btn" type="submit" value="게시글 작성" />
+				</div>
+			</form>
+			<p class="a">
+				<a href="<%=request.getContextPath()%>/notice_main.jsp"><- 게시글 목록으로 돌아가기</a>
+			</p>
+		</section>
+	</div>
 
-	<a href="<%=request.getContextPath()%>/post.jsp">게시글 목록으로 돌아가기</a>
 </body>
 </html>
 

@@ -20,8 +20,8 @@ module.exports = () => {
       return islist ? [parseFloat(value)] : parseFloat(value);
     if (/^true$/i.test(value)) return islist ? [true] : true;
     if (/^false$/i.test(value)) return islist ? [false] : false;
-    if (/^$/.test(value) || /^null$/i.test(value))
-      return islist ? [null] : null;
+    // if (/^$/.test(value) || /^null$/i.test(value))
+    //   return islist ? [null] : null;
     if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(value))
       return islist ? [new Date(value)] : new Date(value);
     return islist ? [value] : value;

@@ -2,12 +2,13 @@ package com.jsp.system;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-import org.json.*;
+import org.json.JSONObject;
 
 public class Ajax {
 	
@@ -64,5 +65,34 @@ public class Ajax {
 		}catch(Exception e) {}
 			return result.toString();
 	}
+	   public static class Pair{
+		      private static Random random = new Random();
+		      public int first;
+		      public int second;
+		      public Pair(int end) {
+		         first = random.nextInt(0, end);
+		         do {
+		            second = random.nextInt(0, end);
+		         } while(first == second);
+		      }
+		      public boolean equals(Pair other) {
+		         return (first == other.first && second == other.second) || 
+		               (first == other.second && second == other.first);
+		      }
+		   }
+		   
+		   public static List<Pair> getRandomNumbers(int length, int size){
+		      List<Pair> result = new LinkedList<Pair>();
+		      int finalsize = 0;
+		      for(int i = 0; i < length; i += 1)
+		         finalsize += i;
+		      finalsize = finalsize > size ? size : finalsize;
+		      while(result.size() < finalsize) {
+		         Pair target = new Pair(length);
+		         if(result.stream().filter((data)->data.equals(target)).count() > 0) continue;
+		         result.add(target);
+		      }
+		      return result;
+		   }
 
 }   

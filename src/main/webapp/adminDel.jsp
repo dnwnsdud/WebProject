@@ -10,14 +10,14 @@ if (loggedInUser.getUserID().equals("admin")) {
 	// 세션에서 사용자 정보를 가져온 경우
 } else {
 	// 세션에서 사용자 정보를 가져오지 못한 경우
-	response.sendRedirect("index.html");
+	response.sendRedirect("index.jsp");
 }
     adminDAO adminDao = new adminDAO();
     List<userDTO> userList = adminDao.getAllUsers();
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

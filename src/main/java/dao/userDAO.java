@@ -13,8 +13,7 @@ public class userDAO {
 	private static final String LOGIN_QUERY = "SELECT userPassword FROM USERS WHERE userID = ?";
 	private static final String SIGNUP_QUERY = "INSERT INTO USERS (USERNUM, USERID, USERPASSWORD, USERNAME, USERNICKNAME, USEREMAIL, USERRESISTNUM, USERTEL) VALUES (USER_NUM_SEQ.NEXTVAL, ?,?,?,?,?,?,?)";
 	private static final String USER_UPDATE_QUERY = "UPDATE USERS SET userEmail=?, UserTel=?, userPassword=?, userNickName=? WHERE userID=?";
-	private static final String FIND_USERID_QUERY = "SELECT USERS FROM UserDB WHERE userEmail=? and userTel=? and userResistNum=?";
-	private static final String DELETE_USER_QUERY = "DELETE FROM USERS WHERE userID=? AND userPassword=?";
+	private static final String FIND_USERID_QUERY = "SELECT userID FROM USERS WHERE userEmail=? AND userTel=? AND userResistNum=?";	private static final String DELETE_USER_QUERY = "DELETE FROM USERS WHERE userID=? AND userPassword=?";
 	private static final String GET_USER_BY_USERID_QUERY = "SELECT * FROM USERS WHERE userID = ?";
 
 	public userDAO() {
@@ -47,23 +46,31 @@ public class userDAO {
 	}
 
 	public userDTO login(String userID, String userPassword) {
-		try (PreparedStatement pstmLogin = conn.prepareStatement(LOGIN_QUERY)) {
-			pstmLogin.setString(1, userID);
+	    try (PreparedStatement pstmLogin = conn.prepareStatement(LOGIN_QUERY)) {
+	        pstmLogin.setString(1, userID);
 
-			try (ResultSet rs = pstmLogin.executeQuery()) {
-				if (rs.next()) {
-					userDTO user = new userDTO();
-					user.setUserID(userID);
-					user.setUserPassword(rs.getString("userPassword"));
-					return user;
-				} else {
-					return null; // 아이디 없음
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null; // 데이터베이스 오류
-		}
+	        try (ResultSet rs = pstmLogin.executeQuery()) {
+	            if (rs.next()) {
+	                String storedPassword = rs.getString("userPassword");
+
+	                if (storedPassword.equals(userPassword)) {
+	                    userDTO user = new userDTO();
+	                    user.setUserID(userID);
+	                    user.setUserPassword(storedPassword);
+	                    return user; // 아이디와 비밀번호 일치
+	                } else {
+	                    System.out.println("비밀번호 불일치");
+	                    return null; // 비밀번호 불일치
+	                }
+	            } else {
+	                System.out.println("아이디 없음");
+	                return null; // 아이디 없음
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return null; // 데이터베이스 오류
+	    }
 	}
 
 	public int signUp(userDTO user) {
@@ -120,21 +127,23 @@ public class userDAO {
 	}
 
 	public String findUserID(userDTO user) {
-		try (PreparedStatement pstmFindUserID = conn.prepareStatement(FIND_USERID_QUERY);
-				ResultSet rs = pstmFindUserID.executeQuery()) {
-			pstmFindUserID.setString(1, user.getUserEmail());
-			pstmFindUserID.setString(2, user.getUserTel());
-			pstmFindUserID.setString(3, user.getUserResistNum());
+	    try (PreparedStatement pstmFindUserID = conn.prepareStatement(FIND_USERID_QUERY)) {
+	        pstmFindUserID.setString(1, user.getUserEmail());
+	        pstmFindUserID.setString(2, user.getUserTel());
+	        pstmFindUserID.setString(3, user.getUserResistNum());
 
-			String userID = null;
-			if (rs.next()) {
-				userID = rs.getString("UserID");
-			}
-			return userID;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+	        try (ResultSet rs = pstmFindUserID.executeQuery()) {
+	            String userID = null;
+	            if (rs.next()) {
+	                userID = rs.getString("userID");
+	            }
+	            return userID;
+	        }
+	    } catch (SQLException e) {
+	    	System.out.println(e);
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 
 	public int deleteUser(String userId, String userPassword) {

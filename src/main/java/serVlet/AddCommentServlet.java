@@ -46,6 +46,6 @@ public class AddCommentServlet extends HttpServlet {
         cd.createComment(comment);
 
 
-        response.sendRedirect("postDetail.jsp?postId=" + postId);
+        response.sendRedirect("notice_detail.jsp?postId=" + postId);
     }
 }

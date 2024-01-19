@@ -122,8 +122,8 @@ let slide1 = new Swiper(".slide1", {
 });
 
 let slide2 = new Swiper(".slide2", {
-  slidesPerView: 1,
-  slidesPerGroup: 1,
+  slidesPerView: 4,
+  slidesPerGroup: 4,
   spaceBetween: 10,
   grabCursor: true,
   navigation: {
@@ -142,7 +142,16 @@ let slide3 = new Swiper(".slide3", {
     prevEl: ".prev3",
   },
 });
-
+let slide4 = new Swiper(".slide4", {
+  slidesPerView: 1,
+  slidesPerGroup: 1,
+  spaceBetween: 10,
+  grabCursor: true,
+  navigation: {
+    nextEl: ".next4",
+    prevEl: ".prev4",
+  },
+});
 window.addEventListener("scroll", () => {
   if (window.scrollY > 100) {
     console.log(window.scrollY);
